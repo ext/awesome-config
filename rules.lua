@@ -23,7 +23,7 @@ awful.rules.rules = {
 		{
 			 rule = { class = "Firefox" }, except = { instance = "Navigator" },
 			 callback = function(c)
-										 -- awful.titlebar.add(c, {modkey=modkey})
+										 awful.titlebar.add(c, {modkey=modkey})
 									end,
 			 properties = { floating = true }
 		},
@@ -32,7 +32,7 @@ awful.rules.rules = {
 		{
 			 rule = { class = "Thunderbird" }, except = { instance = "Mail" },
 			 callback = function(c)
-										 -- awful.titlebar.add(c, {modkey=modkey})
+										 awful.titlebar.add(c, {modkey=modkey})
 									end,
 			 properties = { floating = true }
 		},
@@ -41,7 +41,7 @@ awful.rules.rules = {
 		{
 			 rule = { class = "Isaac" },
 			 callback = function(c)
-										 -- awful.titlebar.add(c, {modkey=modkey})
+										 awful.titlebar.add(c, {modkey=modkey})
 									end,
 			 properties = { floating = true }
 		},
