@@ -1,11 +1,39 @@
 local altkey = "Mod1"
 local exec   = awful.util.spawn
 
+ -- Returns index of nth tag after current tag
+function next_tag(n)
+	 screen = client.focus.screen
+	 return awful.util.cycle(#tags[screen], awful.tag.getidx(awful.tag.selected(screen)) + n)
+ end
+
+-- Move both view and client
+function cycle_client_tag(dir)
+	 if not client.focus then
+			return
+	 end
+
+	 screen = client.focus.screen
+	 i = awful.tag.getidx()
+	 t = next_tag(dir)
+	 if tags[screen][t] then
+			awful.client.movetotag(tags[screen][t])
+	 end
+
+	 if dir == 1 then
+			awful.tag.viewnext()
+	 else
+			awful.tag.viewprev()
+	 end
+end
+
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ modkey, "Control" }, "Left",  function() cycle_client_tag(-1) end),
+    awful.key({ modkey, "Control" }, "Right", function() cycle_client_tag( 1) end),
 
     awful.key({ modkey,           }, "j",
         function ()
