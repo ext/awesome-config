@@ -37,6 +37,10 @@ awful.rules.rules = {
 			 properties = { floating = true }
 		},
 
+		-- Steam
+    { rule = { class = "Steam" },
+      properties = { floating = true } },
+
 		-- Misc
 		{
 			 rule = { class = "Isaac" },
