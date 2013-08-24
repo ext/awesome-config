@@ -28,8 +28,8 @@ mymainmenu = awful.menu(
 	{ "&Amarok", "amarok", ".icons/amarok.png" },
 	{ "&Gimp", "gimp" },
 	{ "&LibreOffice", "libreoffice", ".icons/office.xpm" },
-	{ "&Eclipse", "eclipse-3.5" },
 	{ "&VirtualBox", "VirtualBox" },
+	{ "&Steam", "steam" },
 	separator,
 	{ "awesome", myawesomemenu, beautiful.awesome_icon },
 	{ "system", sysmenu }
