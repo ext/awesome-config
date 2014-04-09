@@ -19,17 +19,18 @@ sysmenu = {
 
 mymainmenu = awful.menu(
    { items = {
-	{ "terminal", terminal, ".icons/term.png" },
+	{ "terminal", terminal, ".config/awesome/icons/term.png" },
 	{ "IRC", "/home/ext/bin/user/irc" },
 	separator,
-	{ "&Firefox", "firefox", ".icons/firefox.png" },
-	{ "&Chromium", "chromium", ".icons/chromium.png" },
-	{ "&Thunderbird", "thunderbird", ".icons/thunderbird.xpm"},
-	{ "&Amarok", "amarok", ".icons/amarok.png" },
-	{ "&Gimp", "gimp" },
-	{ "&LibreOffice", "libreoffice", ".icons/office.xpm" },
-	{ "&VirtualBox", "VirtualBox" },
-	{ "&Steam", "steam" },
+	{ "&Firefox", "firefox", ".config/awesome/icons/firefox.png" },
+	{ "&Chromium", "chromium", ".config/awesome/icons/chromium.png" },
+	{ "&Thunderbird", "thunderbird", ".config/awesome/icons/thunderbird.xpm"},
+	{ "&Amarok", "amarok", ".config/awesome/icons/amarok.png" },
+	{ "&Gimp", "gimp", ".config/awesome/icons/gimp.png" },
+	{ "&LibreOffice", "libreoffice", ".config/awesome/icons/office.xpm" },
+	{ "&VirtualBox", "VirtualBox", ".config/awesome/icons/virtualbox.png" },
+	{ "&Steam", "steam", ".config/awesome/icons/steam.png" },
+	{ "&Wireshark", "wireshark", ".config/awesome/icons/wireshark.png" },
 	separator,
 	{ "awesome", myawesomemenu, beautiful.awesome_icon },
 	{ "system", sysmenu }
