@@ -37,13 +37,11 @@ awful.rules.rules = {
 			 properties = { floating = true }
 		},
 
-		-- Steam
-    { rule = { class = "Steam" },
-      properties = { floating = true } },
-
-		-- VirtualBox
-    { rule = { class = "VirtualBox" },
-      properties = { floating = true } },
+		-- Rules for floating windows
+    { rule = { class = "Steam" }, properties = { floating = true } },
+    { rule = { class = "bitcoin-qt" }, properties = { floating = true } },
+    { rule = { class = "dogecoin-qt" }, properties = { floating = true } },
+    { rule = { class = "VirtualBox" }, properties = { floating = true } },
 
 		-- Misc
 		{
