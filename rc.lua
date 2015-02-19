@@ -99,9 +99,7 @@ mytasklist.buttons = awful.util.table.join(
 								 else
 									 instance = awful.menu.clients({ width=250 })
 								 end
-											 end),
-	awful.button({ }, 4, awful.tag.viewnext),
-	awful.button({ }, 5, awful.tag.viewprev)
+											 end)
 )
 
 for s = 1, screen.count() do
@@ -125,8 +123,13 @@ for s = 1, screen.count() do
 																					return awful.widget.tasklist.label.currenttags(c, s)
 																				end, mytasklist.buttons)
 
+
 	-- Create the wibox
 	mywibox[s] = awful.wibox({ position = "top", screen = s })
+	mywibox[s]:buttons(awful.util.table.join(
+													awful.button({ }, 4, awful.tag.viewnext),
+													awful.button({ }, 5, awful.tag.viewprev)))
+
 	-- Add widgets to the wibox - order matters
 	mywibox[s].widgets = {
 		{
