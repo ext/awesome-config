@@ -23,6 +23,7 @@ mymainmenu = awful.menu({
 			{ "IRC", "/home/ext/bin/user/irc" },
 			separator,
 			{ "&Firefox", "firefox", ".config/awesome/icons/firefox.png" },
+			{ "Firefox (Tor)", "firefox -P tor", ".config/awesome/icons/firefox.png" },
 			{ "&Chromium", "chromium", ".config/awesome/icons/chromium.png" },
 			{ "&Thunderbird", "thunderbird", ".config/awesome/icons/thunderbird.xpm"},
 			{ "&Amarok", "amarok", ".config/awesome/icons/amarok.png" },
@@ -31,6 +32,7 @@ mymainmenu = awful.menu({
 			{ "&VirtualBox", "VirtualBox", ".config/awesome/icons/virtualbox.png" },
 			{ "&Steam", "steam", ".config/awesome/icons/steam.png" },
 			{ "&Wireshark", "wireshark", ".config/awesome/icons/wireshark.png" },
+			{ "&Skype", "skype"},
 			separator,
 			{ "awesome", myawesomemenu, beautiful.awesome_icon },
 			{ "system", sysmenu }
