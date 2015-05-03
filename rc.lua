@@ -1,11 +1,11 @@
--- Standard awesome library
-require("awful")
-require("awful.autofocus")
-require("awful.rules")
--- Theme handling library
-require("beautiful")
--- Notification library
-require("naughty")
+awful = require("awful")
+awful.autofocus = require("awful.autofocus")
+awful.rules = require("awful.rules")
+awful.widget = require("awful.widget")
+beautiful = require("beautiful")
+naughty = require("naughty")
+wibox = require("wibox")
+menubar = require("menubar")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -19,7 +19,7 @@ end
 -- Handle runtime errors after startup
 do
 	local in_error = false
-	awesome.add_signal("debug::error", function (err)
+	awesome.connect_signal("debug::error", function (err)
 											 -- Make sure we don't go into an endless error loop
 											 if in_error then return end
 											 in_error = true
@@ -52,11 +52,8 @@ require("menu")
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock({ align = "left" }, "%A %Y-%m-%d %k:%M:%S v.%U", 1)
--- mytextclock = awful.widget.textclock()
-
--- Create a systray
-mysystray = widget({ type = "systray" })
+--mytextclock = awful.widget.textclock({ align = "left" }, "%A %Y-%m-%d %k:%M:%S v.%U", 1)
+mytextclock = awful.widget.textclock("%A %Y-%m-%d %k:%M:%S v.%U", 1)
 
 def_buttons = awful.util.table.join(
 	awful.button({ }, 4, awful.tag.viewnext),
@@ -114,37 +111,38 @@ for s = 1, screen.count() do
 													 awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
 													 awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
 	-- Create a taglist widget
-	-- mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-	mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
+	mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
 	-- Create a tasklist widget
-	-- mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-	mytasklist[s] = awful.widget.tasklist(function(c)
-																					return awful.widget.tasklist.label.currenttags(c, s)
-																				end, mytasklist.buttons)
+	mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
 
 	-- Create the wibox
 	mywibox[s] = awful.wibox({ position = "top", screen = s })
 	mywibox[s]:buttons(awful.util.table.join(
-													awful.button({ }, 4, awful.tag.viewnext),
-													awful.button({ }, 5, awful.tag.viewprev)))
+	                    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
+	                    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)))
 
-	-- Add widgets to the wibox - order matters
-	mywibox[s].widgets = {
-		{
-			mylauncher,
-			mytaglist[s],
-			mypromptbox[s],
-			layout = awful.widget.layout.horizontal.leftright
-		},
-		mylayoutbox[s],
-		mytextclock,
-		s == 1 and mysystray or nil,
-		mytasklist[s],
-		layout = awful.widget.layout.horizontal.rightleft
-	}
+	-- Widgets that are aligned to the left
+	local left_layout = wibox.layout.fixed.horizontal()
+	left_layout:add(mylauncher)
+	left_layout:add(mytaglist[s])
+	left_layout:add(mypromptbox[s])
 
+	-- Widgets that are aligned to the right
+	local right_layout = wibox.layout.fixed.horizontal()
+	if s == 1 then right_layout:add(wibox.widget.systray()) end
+	right_layout:add(wibox.widget.systray())
+	right_layout:add(mytextclock)
+	right_layout:add(mylayoutbox[s])
+
+	-- Now bring it all together (with the tasklist in the middle)
+	local layout = wibox.layout.align.horizontal()
+	layout:set_left(left_layout)
+	layout:set_middle(mytasklist[s])
+	layout:set_right(right_layout)
+
+	mywibox[s]:set_widget(layout)
 end
 -- }}}
 
@@ -159,15 +157,14 @@ root.buttons(awful.util.table.join(
 require("keys")
 require("rules")
 
-
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
-client.add_signal("manage", function (c, startup)
+client.connect_signal("manage", function (c, startup)
 										-- Add a titlebar
 										-- awful.titlebar.add(c, { modkey = modkey })
 
 										-- Enable sloppy focus
-										c:add_signal("mouse::enter", function(c)
+										c:connect_signal("mouse::enter", function(c)
 																	 if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
 																	 and awful.client.focus.filter(c) then
 																		 client.focus = c
@@ -187,6 +184,6 @@ client.add_signal("manage", function (c, startup)
 										end
 														end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
