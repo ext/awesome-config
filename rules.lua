@@ -52,18 +52,6 @@ awful.rules.rules = {
 		               keys = clientkeys,
 		               buttons = clientbuttons } },
 
-	{ rule = { class = "MPlayer" },
-		callback = awful.placement.centered,
-		properties = { floating = true } },
-	{ rule = { class = "Vlc" },
-		callback = awful.placement.centered,
-		properties = { floating = true } },
-	{ rule = { class = "pinentry" },
-		callback = awful.placement.centered,
-		properties = { floating = true } },
-	{ rule = { class = "Gimp" },
-		properties = { floating = true } },
-
 	-- Rules for firefox
 	{
 		rule = { class = "Firefox" }, except = { instance = "Navigator" },
@@ -78,23 +66,30 @@ awful.rules.rules = {
 		properties = { floating = true }
 	},
 
-	-- Rules for floating windows
-	{ rule = { class = "Steam" }, properties = { floating = true } },
-	{ rule = { class = "bitcoin-qt" }, properties = { floating = true } },
-	{ rule = { class = "dogecoin-qt" }, properties = { floating = true } },
-	{ rule = { class = "VirtualBox" }, properties = { floating = true } },
-
-	-- Misc
+	-- Floating window
 	{
-		rule = { class = "Isaac" },
-		callback = function(c)
-			awful.titlebar.add(c, {modkey=modkey})
-		end,
-		properties = { floating = true }
+		rule_any = { class = {"Steam", "bitcoin-qt", "dogecoin-qt", "VirtualBox", "Gimp"} },
+		properties = {
+			floating = true
+		}
 	},
 
-	-- Set Firefox to always map on tags number 2 of screen 1.
-	-- { rule = { class = "Firefox" },
-	--   properties = { tag = tags[1][2] } },
+	-- Floating window, centered on launch
+	{
+		rule_any = { class = {"MPlayer", "Animate", "Vlc", "pinentry"} },
+		callback = awful.placement.centered,
+		properties = {
+			floating = true
+		}
+	},
+
+	-- Games: floating, titlebar (some games doesn't have any other way to exit)
+	{
+		rule_any = { name = {"HuniePop", "Isaac"} },
+		callback = titlebar,
+		properties = {
+			floating = true
+		}
+	}
 }
 -- }}}
