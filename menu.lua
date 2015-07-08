@@ -33,6 +33,7 @@ mymainmenu = awful.menu({
 			{ "&Steam", "steam", ".config/awesome/icons/steam.png" },
 			{ "&Wireshark", "wireshark", ".config/awesome/icons/wireshark.png" },
 			{ "&Skype", "skype"},
+			{ "pavucontrol", "pavucontrol" },
 			separator,
 			{ "awesome", myawesomemenu, beautiful.awesome_icon },
 			{ "system", sysmenu }
