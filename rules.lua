@@ -76,7 +76,7 @@ awful.rules.rules = {
 
 	-- Floating window, centered on launch
 	{
-		rule_any = { class = {"MPlayer", "Animate", "Vlc", "pinentry"} },
+		rule_any = { class = {"MPlayer", "Animate", "Vlc", "pinentry", "Xdialog"} },
 		callback = awful.placement.centered,
 		properties = {
 			floating = true
