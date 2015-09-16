@@ -12,7 +12,7 @@ myawesomemenu = {
 sysmenu = {
 	{ "shut down", "sudo -n /sbin/halt" },
 	{ "suspend to ram", "sudo -n /usr/sbin/pm-suspend" },
-	{ "suspend to disk", "sudo -n /usr/sbin/pm-hibernate" },
+--	{ "suspend to disk", "sudo -n /usr/sbin/pm-hibernate" },
 	{ "reboot", "sudo -n /sbin/reboot" },
 	{ "log out", awesome.quit }
 }
